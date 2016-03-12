@@ -1,0 +1,170 @@
+<head>
+	<title>YUMLIST</title>
+</head>
+
+<body>
+	<header>
+		<h1>YUMLIST</h1>
+	</header>
+	<div class="content">
+		<div class="form">{{> addForm }}</div>
+		<h3>My Places</h3>
+		{{> placesFilter }}
+		{{> restaurantList }}
+
+		{{> priceCode }}
+	</div>
+</body>
+
+
+<template name="addForm">
+	<h5>+ Add a new place to your list</h5>
+	<div class="well">
+		<a href="#" class="close">x</a>
+		<form>
+			<div class="form-group">
+				<label for="place">Place</label>
+				<input class="form-control" required type="text" data-field="place" placeholder="Restaurant Name"/>
+			</div>
+			<div class="form-group">
+				<label for="place">Location/City</label>
+				<input class="form-control" required type="text" data-field="location" placeholder="Location or City of Restaurant"/>
+			</div>
+			<div class="form-group">
+				<label for="status">Visited or To Try?</label>
+				<select class="form-control" name="status" data-field="status">
+					<option value>Select Status</option>
+					<option value="Visited">Visited</option>
+					<option value="To Try">To Try</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="rating">Rating</label>
+				<select class="form-control" name="rating" data-field="rating">
+					<option value>Select Rating</option>
+					<option value="Awesome">Awesome</option>
+					<option value="Pretty Good">Pretty Good</option>
+					<option value="Meh">Meh</option>
+					<option value="Not Very Good">Not Very Good</option>
+					<option value="Worst">Worst</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="price">Approximate Price Range*</label>
+				<select class="form-control" name="price" data-field="price">
+					<option value>Select Price Range</option>
+					<option value="Really Cheap">Really Cheap</option>
+					<option value="Cheap">Cheap</option>
+					<option value="Affordable">Affordable</option>
+					<option value="Pricey">Pricey</option>
+					<option value="Expensive">Expensive</option>
+					<option value="Fancy">Fancy</option>
+				</select>
+			</div>
+			<button class="btn btn-default" type="button" data-field="add">Add Place</button>
+		</form>
+	</div>
+</template>
+
+<template name="placesFilter">
+
+	<label class="filter-labels">Filter by Location:</label>
+	<select class="locationFilter">
+		<option value="all">All</option>
+		{{#each options}}
+		<option value="{{this}}">{{this}}</option>
+		{{/each}}
+	</select>
+
+	<label class="filter-labels">Filter by Status:</label>
+	<select class="statusFilter">
+		<option value="all">All</option>
+		<option value="Visited">Visited</option>
+		<option data-field="to-try" value="To Try">To Try</option>
+	</select>
+
+	<label class="filter-labels">Filter by Rating:</label>
+	<select class="ratingFilter">
+		<option value="all">All</option>
+		<option value="Awesome">Awesome</option>
+		<option value="Pretty Good">Pretty Good</option>
+		<option value="Meh">Meh</option>
+		<option value="Not Very Good">Not Very Good</option>
+		<option value="Worst">Worst</option>
+	</select>
+
+</template>
+
+<template name ="restaurantList">
+	<table class="table table-hover table-striped">
+		<thead>
+			<tr>
+				<th class="fc-sort" data-fc-sort="name">
+					Name
+				</th>
+				<th>Location/City</th>
+				<th>Status</th>
+				<th>
+					Rating
+				</th>
+				<th>Price</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		{{ #each places }}
+		<tr class="placeRow">
+			<td>{{ place }}</td>
+			<td>{{ location }}</td>
+			<td>{{ status }}</td>
+			<td>{{ rating }}</td>
+			<td>{{ price }}</td>
+			<td><a href="#" class="delete">delete</a></td>
+		</tr>
+		{{else}}
+		<p class="no-place">You have no places.</p>
+		{{ /each }}
+		</tbody>
+	</table>
+</template>
+
+<template name="detailsEditModal">
+	<div class="modal">testing</div>
+</template>
+
+<template name="priceCode">
+	<div class="price-code">
+		<h6>* Price Range Code<br><small>Based on entre for 1</small></h6>
+		<div class="price-table">
+		<table>
+			<tbody>
+				<tr>
+					<td>Really Cheap</td>
+					<td>Under $6</td>
+				</tr>
+				<tr>
+					<td>Cheap</td>
+					<td>$6 - $9</td>
+				</tr>
+				<tr>
+					<td>Affordable</td>
+					<td>$10 - $16</td>
+				</tr>
+				<tr>
+					<td>Pricey</td>
+					<td>$17 - $25</td>
+				</tr>
+				<tr>
+					<td>Expensive</td>
+					<td>$26 - $35</td>
+				</tr>
+				<tr>
+					<td>Fancy</td>
+					<td>$36+</td>
+				</tr>
+			</tbody>
+		</table>
+		<a class="table-close">Close</a>
+	</div>
+	</div>
+</template>
